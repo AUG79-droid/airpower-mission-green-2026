@@ -1,4 +1,4 @@
-# Airpower Mission Green 2026
+# Airpower Sustainability Challenge 2026
 
 An English-language interactive decision game for learning about 2026 sustainability objectives in an Airpower Services context.
 
