@@ -155,7 +155,7 @@ const missions: Mission[] = [
       },
     ],
     learning: [
-      "Report both absolute emissions and an intensity metric such as kgCO₂e per tonne-kilometre.",
+      "Report both absolute emissions and an intensity metric such as kgCO₂e (kilograms of carbon dioxide equivalent) per tonne-kilometre.",
       "Define the baseline, shipment boundary, allocation method and reporting period.",
       "An avoided-emissions statement needs a documented counterfactual, not only a better route estimate.",
     ],
@@ -183,7 +183,7 @@ const missions: Mission[] = [
         choices: [
           {
             id: "meter-controls",
-            title: "Metering + HVAC controls",
+            title: "Metering + HVAC (heating, ventilation and air conditioning) controls",
             description: "Sub-meter priority zones, tune schedules and verify comfort and operational constraints.",
             impact: { readiness: 5, environment: 11, evidence: 10, delivery: 5 },
             integrity: "strong",
@@ -345,12 +345,12 @@ const missions: Mission[] = [
   {
     id: "reach",
     number: "04",
-    short: "REACH Signal",
+    short: "REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) Signal",
     title: "Find the evidence before release",
     location: "Engineering support cell",
-    discipline: "REACH & VERUS",
-    objective: "Support end-to-end REACH compliance without creating unsupported assurances.",
-    target: "2026 objective: maintain progress against TAS REACH milestones and strengthen competence.",
+    discipline: "REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) & VERUS",
+    objective: "Support end-to-end REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) compliance without creating unsupported assurances.",
+    target: "2026 objective: maintain progress against TAS REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) milestones and strengthen competence.",
     briefing:
       "A supplier proposes a substitute coating for a maintenance task. Performance data is promising, but the regulatory dossier is incomplete.",
     symbol: "⌁",
@@ -359,7 +359,7 @@ const missions: Mission[] = [
       {
         title: "Handle the proposed substitute",
         prompt: "What do you authorise?",
-        detail: "This simulation does not replace the applicable Airbus, ECHA or programme compliance process.",
+        detail: "This simulation does not replace the applicable Airbus, ECHA (European Chemicals Agency) or programme compliance process.",
         choices: [
           {
             id: "controlled-review",
@@ -435,21 +435,21 @@ const missions: Mission[] = [
   {
     id: "saf",
     number: "05",
-    short: "SAF Flight File",
+    short: "SAF (sustainable aviation fuel) Flight File",
     title: "Account for the fuel, not the headline",
     location: "Training operations",
-    discipline: "SAF investigation",
-    objective: "Evaluate potential SAF use for training activity using lifecycle evidence.",
-    target: "2026 objective: investigate potential SAF use in affiliate training flights.",
+    discipline: "SAF (sustainable aviation fuel) investigation",
+    objective: "Evaluate potential SAF (sustainable aviation fuel) use for training activity using lifecycle evidence.",
+    target: "2026 objective: investigate potential SAF (sustainable aviation fuel) use in affiliate training flights.",
     briefing:
-      "A training flight may use a SAF blend. Procurement can secure a batch, but the pathway, chain of custody and lifecycle value must be recorded.",
+      "A training flight may use a SAF (sustainable aviation fuel) blend. Procurement can secure a batch, but the pathway, chain of custody and lifecycle value must be recorded.",
     symbol: "△",
     accent: "violet",
     decisions: [
       {
         title: "Build the evidence file",
         prompt: "What information is required before making an emissions statement?",
-        detail: "SAF lifecycle performance varies by pathway and must not be confused with zero tailpipe emissions.",
+        detail: "SAF (sustainable aviation fuel) lifecycle performance varies by pathway and must not be confused with zero tailpipe emissions.",
         choices: [
           {
             id: "verified-batch",
@@ -462,8 +462,8 @@ const missions: Mission[] = [
           },
           {
             id: "generic-saf",
-            title: "Generic SAF invoice",
-            description: "Record that SAF was purchased but not the batch pathway, blend or lifecycle value.",
+            title: "Generic SAF (sustainable aviation fuel) invoice",
+            description: "Record that SAF (sustainable aviation fuel) was purchased but not the batch pathway, blend or lifecycle value.",
             impact: { readiness: 6, environment: 3, evidence: -8, delivery: 4 },
             integrity: "mixed",
             feedback:
@@ -497,15 +497,15 @@ const missions: Mission[] = [
           {
             id: "zero-flight",
             title: "Call it a zero-emission flight",
-            description: "Use SAF participation as proof that the flight caused no emissions.",
+            description: "Use SAF (sustainable aviation fuel) participation as proof that the flight caused no emissions.",
             impact: { readiness: -3, environment: -3, evidence: -18, delivery: 1 },
             integrity: "weak",
             feedback:
-              "This is not supported. SAF claims concern lifecycle performance under defined conditions, not zero emissions at the aircraft.",
+              "This is not supported. SAF (sustainable aviation fuel) claims concern lifecycle performance under defined conditions, not zero emissions at the aircraft.",
           },
           {
             id: "saf-only",
-            title: "Say only “we used SAF”",
+            title: "Say only “we used SAF (sustainable aviation fuel)”",
             description: "Omit blend, amount, pathway, reporting period and the nature of the claimed benefit.",
             impact: { readiness: 2, environment: 2, evidence: -7, delivery: 4 },
             integrity: "mixed",
@@ -516,11 +516,11 @@ const missions: Mission[] = [
       },
     ],
     learning: [
-      "SAF-related emissions statements depend on lifecycle values, pathway, amount and chain of custody.",
+      "SAF (sustainable aviation fuel)-related emissions statements depend on lifecycle values, pathway, amount and chain of custody.",
       "A lifecycle reduction is not the same as eliminating combustion emissions during a flight.",
       "State whether a value is measured, certified, estimated or assumed.",
     ],
-    claimCheck: "Describe the verified fuel batch and lifecycle boundary; never call a SAF flight “zero emission”.",
+    claimCheck: "Describe the verified fuel batch and lifecycle boundary; never call a SAF (sustainable aviation fuel) flight “zero emission”.",
   },
   {
     id: "greenlight",
@@ -842,8 +842,8 @@ export default function Home() {
             <span>CO₂ LOGISTICS</span><i />
             <span>ENERGY</span><i />
             <span>MATERIALS</span><i />
-            <span>REACH</span><i />
-            <span>SAF</span><i />
+            <span>REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals)</span><i />
+            <span>SAF (sustainable aviation fuel)</span><i />
             <span>DATA</span>
           </div>
         </section>
@@ -1102,13 +1102,13 @@ export default function Home() {
             </div>
             <div className="evidence-note">
               <strong>Inside this simulation</strong>
-              <p>All operational figures are illustrative. They do not represent Airbus performance. REACH decisions must follow the applicable company and regulatory process. SAF comparisons require a defined lifecycle methodology and evidence chain.</p>
+              <p>All operational figures are illustrative. They do not represent Airbus performance. REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) decisions must follow the applicable company and regulatory process. SAF (sustainable aviation fuel) comparisons require a defined lifecycle methodology and evidence chain.</p>
             </div>
             <div className="source-links">
-              <a href="https://www.gov.uk/government/publications/green-claims-code-making-environmental-claims/environmental-claims-on-goods-and-services" target="_blank" rel="noreferrer">CMA Green Claims Code ↗</a>
-              <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L0825" target="_blank" rel="noreferrer">EU Directive 2024/825 ↗</a>
-              <a href="https://chem.echa.europa.eu/obligation-lists/candidateList" target="_blank" rel="noreferrer">ECHA Candidate List ↗</a>
-              <a href="https://www.icao.int/CORSIA/fuels-lifecycle" target="_blank" rel="noreferrer">ICAO SAF lifecycle ↗</a>
+              <a href="https://www.gov.uk/government/publications/green-claims-code-making-environmental-claims/environmental-claims-on-goods-and-services" target="_blank" rel="noreferrer">CMA (Competition and Markets Authority) Green Claims Code ↗</a>
+              <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L0825" target="_blank" rel="noreferrer">EU (European Union) Directive 2024/825 ↗</a>
+              <a href="https://chem.echa.europa.eu/obligation-lists/candidateList" target="_blank" rel="noreferrer">ECHA (European Chemicals Agency) Candidate List ↗</a>
+              <a href="https://www.icao.int/CORSIA/fuels-lifecycle" target="_blank" rel="noreferrer">ICAO (International Civil Aviation Organization) SAF (sustainable aviation fuel) lifecycle ↗</a>
             </div>
           </div>
         </div>
