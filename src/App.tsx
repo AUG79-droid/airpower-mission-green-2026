@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import type { CSSProperties } from "react";
+import { deepModules } from "./learningContent";
 
-type Screen = "welcome" | "map" | "mission" | "debrief" | "final";
+type Screen = "welcome" | "map" | "theory" | "mission" | "postlesson" | "debrief" | "final";
 type MetricKey = "readiness" | "environment" | "evidence" | "delivery";
 
 type Impact = Partial<Record<MetricKey, number>>;
@@ -78,7 +79,7 @@ const missions: Mission[] = [
     location: "Logistics network",
     discipline: "CO₂ logistics",
     objective: "Reduce emissions from spare-parts transport while protecting service commitments.",
-    target: "2026 objective: do not exceed the 2025 value and explore route optimisation.",
+    target: "Compare feasible routes, disclose emissions assumptions and investigate avoidable urgent movements.",
     briefing:
       "A flight-control actuator must reach an operating base within 36 hours. An aircraft may remain unavailable if the part arrives late.",
     symbol: "↗",
@@ -170,7 +171,7 @@ const missions: Mission[] = [
     location: "International Services Hub",
     discipline: "Energy efficiency",
     objective: "Improve energy efficiency while maintaining safe and reliable operations.",
-    target: "2026 objective: reduce energy consumption per square metre by 5%.",
+    target: "Establish comparable energy baselines and verify changes within safe operating limits.",
     briefing:
       "The hub has a fixed investment budget. Activity is expected to grow, and a hotter summer may increase cooling demand.",
     symbol: "ϟ",
@@ -260,7 +261,7 @@ const missions: Mission[] = [
     location: "Central warehouse",
     discipline: "Materials & waste",
     objective: "Reduce delivery paper and evaluate lower-impact packaging options.",
-    target: "2026 objective: reduce paper in delivery documentation and assess packaging alternatives.",
+    target: "Reduce avoidable paperwork and compare technically qualified packaging systems.",
     briefing:
       "A sensitive avionics unit needs a new delivery pack. The solution must protect the part, preserve traceability and reduce resource use.",
     symbol: "□",
@@ -350,7 +351,7 @@ const missions: Mission[] = [
     location: "Engineering support cell",
     discipline: "REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) & VERUS",
     objective: "Support end-to-end REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) compliance without creating unsupported assurances.",
-    target: "2026 objective: maintain progress against TAS REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) milestones and strengthen competence.",
+    target: "Evaluate chemical and engineering compliance evidence before any substitute coating release.",
     briefing:
       "A supplier proposes a substitute coating for a maintenance task. Performance data is promising, but the regulatory dossier is incomplete.",
     symbol: "⌁",
@@ -440,7 +441,7 @@ const missions: Mission[] = [
     location: "Training operations",
     discipline: "SAF (sustainable aviation fuel) investigation",
     objective: "Evaluate potential SAF (sustainable aviation fuel) use for training activity using lifecycle evidence.",
-    target: "2026 objective: investigate potential SAF (sustainable aviation fuel) use in affiliate training flights.",
+    target: "Investigate SAF lifecycle evidence and bounded, defensible reporting statements.",
     briefing:
       "A training flight may use a SAF (sustainable aviation fuel) blend. Procurement can secure a batch, but the pathway, chain of custody and lifecycle value must be recorded.",
     symbol: "△",
@@ -530,7 +531,7 @@ const missions: Mission[] = [
     location: "Service design review",
     discipline: "Data & transparency",
     objective: "Assess sustainability in new service projects and turn gaps into owned actions.",
-    target: "2026 objective: sustainability assessment for new TAS service projects.",
+    target: "Assess new service projects using lifecycle context, explicit uncertainty and controlled decision gates.",
     briefing:
       "A mobile maintenance service is approaching approval. It may reduce aircraft downtime, but travel, energy, consumables and end-of-life data are incomplete.",
     symbol: "◎",
@@ -614,6 +615,12 @@ const missions: Mission[] = [
   },
 ];
 
+// Extend every mission with three new evidence-led decisions: 5 questions per mission.
+missions.forEach((mission) => {
+  const extension = deepModules[mission.id];
+  if (extension) mission.decisions.push(...extension.decisions);
+});
+
 const integrityRules = [
   "Truthful and accurate",
   "Clear and unambiguous",
@@ -679,7 +686,7 @@ export default function Home() {
     setSelectedChoice(null);
     setRunDelta(ZERO_DELTA);
     setRunChoices([]);
-    setScreen(completed[missionId] ? "debrief" : "mission");
+    setScreen(completed[missionId] ? "debrief" : "theory");
   }
 
   function choose(choice: Choice) {
@@ -697,7 +704,7 @@ export default function Home() {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    setScreen("debrief");
+    setScreen("postlesson");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -747,7 +754,7 @@ export default function Home() {
             <span className="brand-mark">M26</span>
             <span>
               <strong>AIRPOWER</strong>
-              <small>MISSION GREEN 2026</small>
+              <small>SUSTAINABILITY CHALLENGE</small>
             </span>
           </button>
           <div className="topbar-right">
@@ -780,14 +787,14 @@ export default function Home() {
 
           <div className="welcome-grid">
             <div className="hero-copy">
-              <div className="eyebrow"><span /> 2026 SUSTAINABILITY OBJECTIVES</div>
+              <div className="eyebrow"><span /> SUSTAINABILITY DECISION LAB</div>
               <h1>
                 Every decision
                 <br />
                 <em>changes the mission.</em>
               </h1>
               <p className="hero-lede">
-                Enter six Airpower Services scenarios. Protect operational readiness while making environmental decisions that are specific, evidenced and honest.
+                Work through six aerospace scenarios, 30 decisions and substantial theory. Protect operational readiness while examining lifecycle, resource, compliance and evidence trade-offs.
               </p>
 
               <div className="launch-panel">
@@ -853,9 +860,9 @@ export default function Home() {
         <section className="map-screen page-width">
           <div className="map-heading">
             <div>
-              <div className="eyebrow"><span /> MISSION CONTROL / 2026</div>
+              <div className="eyebrow"><span /> MISSION CONTROL / SIX MISSIONS</div>
               <h1>Choose your next decision zone.</h1>
-              <p>Complete all six missions to unlock your training debrief. There is no perfect environmental answer—only transparent trade-offs.</p>
+              <p>Each mission includes a complete learning introduction, five applied decisions with explanations and a post-mission theory chapter. Complete all six to unlock the final review.</p>
             </div>
             <div className="progress-module" style={{ "--progress": `${progress * 3.6}deg` } as CSSProperties}>
               <div className="progress-ring"><span>{progress}%</span></div>
@@ -892,7 +899,7 @@ export default function Home() {
                   <p>{mission.objective}</p>
                   <div className="target-line"><span>TARGET</span>{mission.target.replace("2026 objective: ", "")}</div>
                   <button onClick={() => openMission(mission.id)}>
-                    {isComplete ? "Review learning" : "Enter mission"} <span>→</span>
+                    {isComplete ? "Review learning" : `Study & enter · ${mission.decisions.length} decisions`} <span>→</span>
                   </button>
                 </article>
               );
@@ -911,9 +918,33 @@ export default function Home() {
         </section>
       )}
 
+      {screen === "theory" && activeMission && deepModules[activeMission.id] && (
+        <section className="learning-screen page-width">
+          <button className="back-button" onClick={() => setScreen("map")}>← Mission control</button>
+          <div className="learning-heading">
+            <div className="eyebrow"><span /> MISSION {activeMission.number} · THEORY BEFORE PRACTICE</div>
+            <h1>{activeMission.short}</h1>
+            <p>{deepModules[activeMission.id].intro}</p>
+            <strong className="learning-path-badge">4 theory chapters · {activeMission.decisions.length} applied decisions · full theoretical review</strong>
+          </div>
+          <div className="learning-chapters">
+            {deepModules[activeMission.id].before.map((block) => (
+              <article className="learning-chapter" key={block.title}>
+                <h2>{block.title}</h2><p>{block.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="learning-checklist">
+            <h2>Before you decide, verify:</h2>
+            <ul>{deepModules[activeMission.id].checklist.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+          <div className="learning-actions"><button className="primary-button" onClick={() => { setScreen("mission"); window.scrollTo({top:0,behavior:"smooth"}); }}>Continue to decision {decisionIndex + 1} of {activeMission.decisions.length} →</button></div>
+        </section>
+      )}
+
       {screen === "mission" && activeMission && currentDecision && (
         <section className="mission-screen page-width">
-          <button className="back-button" onClick={() => setScreen("map")}>← Exit to mission control</button>
+          <div className="learning-nav"><button className="back-button" onClick={() => setScreen("map")}>← Exit to mission control</button><button className="text-button" onClick={() => setScreen("theory")}>Review the theory ↗</button></div>
           <div className="mission-header">
             <div className={`large-symbol accent-${activeMission.accent}`}>{activeMission.symbol}</div>
             <div>
@@ -922,7 +953,7 @@ export default function Home() {
               <p>{activeMission.briefing}</p>
             </div>
             <div className="mission-objective-box">
-              <small>2026 OBJECTIVE</small>
+              <small>LEARNING TARGET</small>
               <strong>{activeMission.target.replace("2026 objective: ", "")}</strong>
               <span>Training scenario · illustrative values</span>
             </div>
@@ -983,13 +1014,41 @@ export default function Home() {
                     </div>
                   </div>
                   <p>{selectedChoice.feedback}</p>
+                  <div className="learning-explanation">
+                    <small>WHY THIS MATTERS</small>
+                    <p>{deepModules[activeMission.id]?.insights[decisionIndex] ?? "Check the evidence, the operational constraints and the decision boundary."}</p>
+                    {selectedChoice.integrity !== "strong" && currentDecision.choices.some(c => c.integrity === "strong") && (
+                      <div className="stronger-answer"><strong>What a more robust decision considers</strong><p>{currentDecision.choices.find(c => c.integrity === "strong")?.feedback}</p></div>
+                    )}
+                  </div>
                   <button className="primary-button" onClick={continueDecision}>
-                    {decisionIndex < activeMission.decisions.length - 1 ? "Continue mission" : "Open debrief"} <span>→</span>
+                    {decisionIndex < activeMission.decisions.length - 1 ? "Continue mission" : "Open full theory review"} <span>→</span>
                   </button>
                 </div>
               )}
             </div>
           </div>
+        </section>
+      )}
+
+      {screen === "postlesson" && activeMission && deepModules[activeMission.id] && (
+        <section className="learning-screen page-width">
+          <button className="back-button" onClick={() => setScreen("map")}>← Mission control</button>
+          <div className="learning-heading">
+            <div className="eyebrow"><span /> MISSION {activeMission.number} · COMPLETE THEORY AFTER PRACTICE</div>
+            <h1>What the five decisions teach us</h1>
+            <p>Review the reasoning, the required evidence and the limits of the conclusions before recording this mission.</p>
+          </div>
+          <div className="learning-chapters after">
+            {deepModules[activeMission.id].after.map((block) => (
+              <article className="learning-chapter" key={block.title}><h2>{block.title}</h2><p>{block.body}</p></article>
+            ))}
+          </div>
+          <div className="learning-checklist">
+            <h2>Decision principles to retain</h2>
+            <ul>{deepModules[activeMission.id].checklist.map((item) => <li key={item}>{item}</li>)}</ul>
+          </div>
+          <div className="learning-actions"><button className="primary-button" onClick={() => {setScreen("debrief"); window.scrollTo({top:0,behavior:"smooth"});}}>See your decision balance and debrief →</button></div>
         </section>
       )}
 
@@ -1047,7 +1106,7 @@ export default function Home() {
           <div className="final-orbit"><div className="final-core"><span>6/6</span><small>MISSIONS</small></div></div>
           <div className="eyebrow centered"><span /> FINAL LEARNING DEBRIEF</div>
           <h1>Mission complete.<br /><em>Evidence remains active.</em></h1>
-          <p className="final-lede">{callSign} completed the 2026 sustainability decision simulation with an overall scenario balance of <strong>{averageScore}/100</strong>.</p>
+          <p className="final-lede">{callSign} completed the sustainability decision-learning experience with an overall scenario balance of <strong>{averageScore}/100</strong>.</p>
 
           <div className="final-scores">
             {(Object.keys(metricMeta) as MetricKey[]).map((key) => (
@@ -1076,7 +1135,7 @@ export default function Home() {
         <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="Mission briefing">
           <div className="briefing-modal">
             <button className="modal-close" onClick={() => setShowBriefing(false)} aria-label="Close briefing">×</button>
-            <div className="briefing-code">BRIEF / M26-2026</div>
+            <div className="briefing-code">BRIEF / DECISION LAB</div>
             <h2>Your mission is not to choose the option that sounds green.</h2>
             <p>Protect the service while making decisions that can withstand scrutiny. Every scenario tests four dimensions.</p>
             <div className="briefing-metrics">
